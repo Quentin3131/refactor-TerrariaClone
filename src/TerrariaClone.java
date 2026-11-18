@@ -500,7 +500,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
     String mobSpawn;
 
     int u, v, ou, ov, uNew, vNew;
-    int x, y, i, j, k, t, wx, wy, lx, ly, tx, ty, twx, twy, tlx, tly, ux, uy, ux2, uy2, uwx, uwy, uwx2, ulx, uly, ulx2, uly2, ucx, ucy, uclx, ucly, pwx, pwy, icx, icy, n, m, dx, dy, dx2, dy2, mx, my, lsx, lsy, lsn, ax, ay, axl, ayl, nl, vc, xpos, ypos, xpos2, ypos2, x2, y2, rnum, mining, immune, width, height, xmin, xmax, ymin, ymax, intpercent, ground;
+    int x, y, k, t, wx, wy, lx, ly, tx, ty, twx, twy, tlx, tly, ux, uy, ux2, uy2, uwx, uwy, uwx2, ulx, uly, ulx2, uly2, ucx, ucy, uclx, ucly, pwx, pwy, icx, icy, n, m, dx, dy, dx2, dy2, mx, my, lsx, lsy, lsn, ax, ay, axl, ayl, nl, vc, xpos, ypos, xpos2, ypos2, x2, y2, rnum, mining, immune, width, height, xmin, xmax, ymin, ymax, intpercent, ground;
     double p, q;
     short s, miningTool;
 
@@ -911,13 +911,13 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
             "solid/dirt", "stone_dirt/downleft", "stone_dirt/downright", "stone_dirt/left", "stone_dirt/right", "stone_dirt/up", "stone_dirt/upleft", "stone_dirt/upright",
             "solid/stone", "stone_none/down"};
 
-        for (i=0; i<bgs.length; i++) {
+        for (int i=0; i<bgs.length; i++) {
             backgroundImgs.put((byte)i, loadImage("backgrounds/" + bgs[i] + ".png"));
         }
 
         itemImgs = new HashMap<Short,BufferedImage>();
 
-        for (i=1; i<items.length; i++) {
+        for (int i=1; i<items.length; i++) {
             itemImgs.put(new Short((short)i), loadImage("items/" + items[i] + ".png"));
             if (itemImgs.get((short)i) == null) {
                 System.out.println("[ERROR] Could not load item graphic '" + items[i] + "'.");
@@ -926,8 +926,8 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         blockImgs = new HashMap<String,BufferedImage>();
 
-        for (i=1; i<blocknames.length; i++) {
-            for (j=0; j<8; j++) {
+        for (int i=1; i<blocknames.length; i++) {
+            for (int j=0; j<8; j++) {
                 blockImgs.put("blocks/" + blocknames[i] + "/texture" + (j+1) + ".png",
                     loadImage("blocks/" + blocknames[i] + "/texture" + (j+1) + ".png"));
                 if (blockImgs.get("blocks/" + blocknames[i] + "/texture" + (j+1) + ".png") == null) {
@@ -940,8 +940,8 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         String[] outlineNameList = {"default", "wood", "none", "tree", "tree_root", "square", "wire"};
 
-        for (i=0; i<outlineNameList.length; i++) {
-            for (j=0; j<dirs.length; j++) {
+        for (int i=0; i<outlineNameList.length; i++) {
+            for (int j=0; j<dirs.length; j++) {
                 for (k=0; k<5; k++) {
                     outlineImgs.put("outlines/" + outlineNameList[i] + "/" + dirs[j] + (k+1) + ".png",
                         loadImage("outlines/" + outlineNameList[i] + "/" + dirs[j] + (k+1) + ".png"));
@@ -1127,19 +1127,19 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                 {7, 8, 9, 10, 51, 54, 57, 145, 148, 154, 157, 169, 172},
                                 {7, 8, 9, 10, 51, 54, 57, 145, 148, 154, 157, 169, 172}};
 
-        for (i=0; i<blocktools.length; i++) {
-            for (j=0; j<blocktools[i].length; j++) {
+        for (int i=0; i<blocktools.length; i++) {
+            for (int j=0; j<blocktools[i].length; j++) {
                 blocktools[i][j] = new Short((short)blocktools[i][j]);
             }
         }
 
-        for (i=1; i<blocknames.length; i++) {
+        for (int i=1; i<blocknames.length; i++) {
             BLOCKTOOLS.put(i, blocktools[i]);
         }
 
         TOOLSPEED = new HashMap<Short,Double>();
 
-        for (i=1; i<items.length; i++) {
+        for (int i=1; i<items.length; i++) {
             TOOLSPEED.put(new Short((short)i), 0.175);
         }
 
@@ -1187,7 +1187,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         TOOLDAMAGE = new HashMap<Short,Integer>();
 
-        for (i=0; i<items.length; i++) {
+        for (int i=0; i<items.length; i++) {
             TOOLDAMAGE.put(new Short((short)i), 1);
         }
 
@@ -1232,7 +1232,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         BLOCKDROPS = new HashMap<Integer,Short>();
 
-        for (i=1; i<blocknames.length; i++) {
+        for (int i=1; i<blocknames.length; i++) {
             BLOCKDROPS.put(i, drops[i]);
         }
 
@@ -1240,13 +1240,13 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         ITEMBLOCKS = new HashMap<Short,Integer>();
 
-        for (i=1; i<items.length; i++) {
+        for (int i=1; i<items.length; i++) {
             ITEMBLOCKS.put(new Short((short)i), itemblocks[i]);
         }
 
         OUTLINES = new HashMap<Integer,String>();
 
-        for (i=1; i<blocknames.length; i++) {
+        for (int i=1; i<blocknames.length; i++) {
             OUTLINES.put(i, "default");
         }
 
@@ -1329,17 +1329,17 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
         OUTLINES.put(135, "none");
         OUTLINES.put(136, "none");
 
-        for (i=48; i<72; i++) {
+        for (int i=48; i<72; i++) {
             OUTLINES.put(i, "none");
         }
 
-        for (i=137; i<169; i++) {
+        for (int i=137; i<169; i++) {
             OUTLINES.put(i, "none");
         }
 
         UIBLOCKS = new HashMap<String,String>();
 
-        for (i=1; i<items.length; i++) {
+        for (int i=1; i<items.length; i++) {
             UIBLOCKS.put(items[i], ui_items[i]);
         }
 
@@ -1361,7 +1361,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         BLOCKCD = new HashMap<Integer,Boolean>();
 
-        for (i=1; i<blockcds.length; i++) {
+        for (int i=1; i<blockcds.length; i++) {
             BLOCKCD.put(i, blockcds[i]);
         }
 
@@ -1369,7 +1369,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         short[] stacks = {100, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, 1, 1, 1, 100, 1, 1, 1, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, 1, 1, 1, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 100, 100, 100, 1, 1, 1, 1, 1, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, 1, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 1};
 
-        for (i=0; i<items.length; i++) {
+        for (int i=0; i<items.length; i++) {
             MAXSTACKS.put(new Short((short)i), stacks[i]);
         }
 
@@ -1450,13 +1450,13 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         LIGHTLEVELS = new HashMap<Integer,BufferedImage>();
 
-        for (i=0; i<17; i++) {
+        for (int i=0; i<17; i++) {
             LIGHTLEVELS.put(i, loadImage("light/" + i + ".png"));
         }
 
         BLOCKLIGHTS = new HashMap<Integer,Integer>();
 
-        for (i=0; i<blocknames.length; i++) {
+        for (int i=0; i<blocknames.length; i++) {
             BLOCKLIGHTS.put(i, 0);
         }
 
@@ -1521,7 +1521,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         ARMOR = new HashMap<Short,Integer>();
 
-        for (i=0; i<items.length; i++) {
+        for (int i=0; i<items.length; i++) {
             ARMOR.put(new Short((short)i), 0);
         }
 
@@ -1676,7 +1676,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
         FUELS.put(new Short((short)90), 0.01);
         FUELS.put(new Short((short)92), 0.01);
         FUELS.put(new Short((short)96), 0.01);
-        for (i=97; i<103; i++) {
+        for (int i=97; i<103; i++) {
             FUELS.put(new Short((short)i), 0.0035);
         }
         FUELS.put(new Short((short)154), 0.002);
@@ -1715,7 +1715,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         TORCHESB = new HashMap<Integer,Boolean>();
 
-        for (i=0; i<blocknames.length; i++) {
+        for (int i=0; i<blocknames.length; i++) {
             TORCHESB.put(i, false);
         }
 
@@ -1744,7 +1744,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         GSUPPORT = new HashMap<Integer,Boolean>();
 
-        for (i=0; i<blocknames.length; i++) {
+        for (int i=0; i<blocknames.length; i++) {
             GSUPPORT.put(i, false);
         }
 
@@ -1765,13 +1765,13 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
         GSUPPORT.put(135, true);
         GSUPPORT.put(136, true);
 
-        for (i=48; i<73; i++) {
+        for (int i=48; i<73; i++) {
             GSUPPORT.put(i, true);
         }
 
         FSPEED = new HashMap<Short,Double>();
 
-        for (i=0; i<blocknames.length; i++) {
+        for (int i=0; i<blocknames.length; i++) {
             FSPEED.put(new Short((short)i), 0.001);
         }
 
@@ -1780,16 +1780,16 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         DDELAY = new HashMap<Integer,Integer>();
 
-        for (i=137; i<145; i++) {
+        for (int i=137; i<145; i++) {
             DDELAY.put(i, 10);
         }
-        for (i=145; i<153; i++) {
+        for (int i=145; i<153; i++) {
             DDELAY.put(i, 20);
         }
-        for (i=153; i<161; i++) {
+        for (int i=153; i<161; i++) {
             DDELAY.put(i, 40);
         }
-        for (i=161; i<169; i++) {
+        for (int i=161; i<169; i++) {
             DDELAY.put(i, 80);
         }
 
@@ -1817,14 +1817,14 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
         FRI1.add(new Short((short)48)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)71)); FRN2.add(new Short((short)1));
         FRI1.add(new Short((short)49)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)72)); FRN2.add(new Short((short)1));
         FRI1.add(new Short((short)50)); FRN1.add(new Short((short)4)); FRI2.add(new Short((short)73)); FRN2.add(new Short((short)1));
-        for (i=8; i>2; i--) {
+        for (int i=8; i>2; i--) {
             FRI1.add(new Short((short)74)); FRN1.add(new Short((short)i)); FRI2.add(new Short((short)76)); FRN2.add(new Short((short)i));
             FRI1.add(new Short((short)2)); FRN1.add(new Short((short)i)); FRI2.add(new Short((short)162)); FRN2.add(new Short((short)i));
             FRI1.add(new Short((short)161)); FRN1.add(new Short((short)i)); FRI2.add(new Short((short)163)); FRN2.add(new Short((short)i));
             FRI1.add(new Short((short)165)); FRN1.add(new Short((short)i)); FRI2.add(new Short((short)166)); FRN2.add(new Short((short)i));
             FRI1.add(new Short((short)15)); FRN1.add(new Short((short)i)); FRI2.add(new Short((short)179)); FRN2.add(new Short((short)i));
         }
-        for (j=97; j<103; j++) {
+        for (int j=97; j<103; j++) {
             FRI1.add(new Short((short)j)); FRN1.add(new Short((short)1)); FRI2.add(new Short((short)167)); FRN2.add(new Short((short)8));
         }
 
@@ -1863,7 +1863,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                             }
                                             for (twy=0; twy<2; twy++) {
                                                 for (twx=0; twx<2; twx++) {
-                                                    for (i=chunkTemp.size()-1; i>-1; i--) {
+                                                    for (int i=chunkTemp.size()-1; i>-1; i--) {
                                                         if (chunkTemp.get(i).cx == twx && chunkTemp.get(i).cy == twy) {
                                                             chunkMatrix[twy][twx] = chunkTemp.get(i);
                                                             chunkTemp.remove(i);
@@ -1880,7 +1880,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                                     }
                                                 }
                                             }
-                                            for (i=0; i<chunkTemp.size(); i++) {
+                                            for (int i=0; i<chunkTemp.size(); i++) {
                                                 temporarySaveFile[twy][twx] = chunkTemp.get(i);
                                             }
                                             chunkTemp = null;
@@ -2191,7 +2191,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                 repaint();
                                 menuPressed = true;
                             }
-                            for (i=0; i<worldFiles.size(); i++) {
+                            for (int i=0; i<worldFiles.size(); i++) {
                                 if (mousePos[0] >= 166 && mousePos[0] <= 470 &&
                                     mousePos[1] >= 117+i*35 && mousePos[1] <= 152+i*35) { // load world
                                     currentWorld = worldNames.get(i);
@@ -2214,7 +2214,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                 if (!newWorldName.text.equals("")) {
                                     findWorlds();
                                     doGenerateWorld = true;
-                                    for (i=0; i<worldNames.size(); i++) {
+                                    for (int i=0; i<worldNames.size(); i++) {
                                         if (newWorldName.text.equals(worldNames.get(i))) {
                                             doGenerateWorld = false;
                                         }
@@ -2321,12 +2321,12 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // Irradium Pick
                            {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};// Irradium Axe
 
-        for (i=0; i<toolList.length; i++) {
+        for (int i=0; i<toolList.length; i++) {
             dur = new HashMap<Integer,Integer>();
-            for (j=0; j<durList[i].length; j++) {
+            for (int j=0; j<durList[i].length; j++) {
                 dur.put(j, durList[i][j]);
             }
-            for (j=0; j<durLis2[i].length; j++) {
+            for (int j=0; j<durLis2[i].length; j++) {
                 dur.put(j+100, durList[i][j]);
             }
             DURABILITY.put(new Short((short)toolList[i]), dur);
@@ -2339,7 +2339,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
         files = folder.listFiles();
         worldFiles = new ArrayList<String>();
         worldNames = new ArrayList<String>();
-        for (i=0; i<files.length; i++) {
+        for (int i=0; i<files.length; i++) {
             if (files[i].isFile() && files[i].getName().endsWith(".dat")) {
                 worldFiles.add(files[i].getName());
                 worldNames.add(files[i].getName().substring(0, files[i].getName().length()-4));
@@ -2537,7 +2537,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
         mousePos2[1] = mousePos[1] + player.iy - getHeight()/2 + player.height/2;
 
         currentSkyLight = skycolors[0];
-        for (i=0; i<skycolors.length; i++) {
+        for (int i=0; i<skycolors.length; i++) {
             if (timeOfDay >= skycolors[i]) {
                 currentSkyLight = skycolors[i];
             }
@@ -2564,7 +2564,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
             rgnc1 -= 1;
         }
 
-        for (j=0; j<machinesx.size(); j++) {
+        for (int j=0; j<machinesx.size(); j++) {
             x = machinesx.get(j); y = machinesy.get(j);
             for (int l=0; l<3; l++) {
                 if (icmatrix[l][y][x] != null && icmatrix[l][y][x].type.equals("furnace")) {
@@ -2588,7 +2588,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                 icmatrix[l][y][x].FUELP = 0;
                                 inventory.removeLocationIC(icmatrix[l][y][x], 1, icmatrix[l][y][x].nums[1]);
                             }
-                            for (i=0; i<FRI1.size(); i++) {
+                            for (int i=0; i<FRI1.size(); i++) {
                                 if (icmatrix[l][y][x].ids[0] == FRI1.get(i) && icmatrix[l][y][x].nums[0] >= FRN1.get(i)) {
                                     icmatrix[l][y][x].SMELTP += FSPEED.get(icmatrix[l][y][x].ids[1]);
                                     if (icmatrix[l][y][x].SMELTP > 1) {
@@ -2632,7 +2632,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                         ic.FUELP = 0;
                         inventory.removeLocationIC(ic, 1, ic.nums[1]);
                     }
-                    for (i=0; i<FRI1.size(); i++) {
+                    for (int i=0; i<FRI1.size(); i++) {
                         if (ic.ids[0] == FRI1.get(i) && ic.nums[0] >= FRN1.get(i)) {
                             ic.SMELTP += FSPEED.get(ic.ids[1]);
                             if (ic.SMELTP > 1) {
@@ -2662,14 +2662,14 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                 }
                 if (ic.type.equals("workbench")) {
                     if (player.imgState.equals("still right") || player.imgState.equals("walk right 1") || player.imgState.equals("walk right 2")) {
-                        for (i=0; i<9; i++) {
+                        for (int i=0; i<9; i++) {
                             if (ic.ids[i] != 0) {
                                 entities.add(new Entity(icx*BLOCKSIZE, icy*BLOCKSIZE, 2, -2, ic.ids[i], ic.nums[i], ic.durs[i], 75));
                             }
                         }
                     }
                     if (player.imgState.equals("still left") || player.imgState.equals("walk left 1") || player.imgState.equals("walk left 2")) {
-                        for (i=0; i<9; i++) {
+                        for (int i=0; i<9; i++) {
                             if (ic.ids[i] != 0) {
                                 entities.add(new Entity(icx*BLOCKSIZE, icy*BLOCKSIZE, -2, -2, ic.ids[i], ic.nums[i], ic.durs[i], 75));
                             }
@@ -2765,7 +2765,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
             }
         }
 
-        for (i=updatex.size()-1; i>-1; i--) {
+        for (int i=updatex.size()-1; i>-1; i--) {
             updatet.set(i, updatet.get(i) - 1);
             if (updatet.get(i) <= 0) {
                 if (blocks[updatel.get(i)][updatey.get(i)][updatex.get(i)] == 128) {
@@ -2964,7 +2964,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         mobCount = 0;
 
-        for (i=entities.size()-1; i>-1; i--) {
+        for (int i=entities.size()-1; i>-1; i--) {
             if (entities.get(i).name != null) {
                 mobCount += 1;
                 if (entities.get(i).ix < player.ix - 2000 || entities.get(i).ix > player.ix + 2000 ||
@@ -3235,7 +3235,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                         checkBlocks = false;
                         if (mouseClicked) {
                             mouseNoLongerClicked = true;
-                            i = uy;
+                            int armorIndex = uy;
                             if (uy == 0 && (moveItem == (short)105 || moveItem == (short)109 || moveItem == (short)113 || moveItem == (short)117 ||
                                             moveItem == (short)121 || moveItem == (short)125 || moveItem == (short)129 || moveItem == (short)133 ||
                                             moveItem == (short)137 || moveItem == (short)141) ||
@@ -3248,24 +3248,24 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                 uy == 3 && (moveItem == (short)108 || moveItem == (short)112 || moveItem == (short)116 || moveItem == (short)120 ||
                                             moveItem == (short)124 || moveItem == (short)128 || moveItem == (short)132 || moveItem == (short)136 ||
                                             moveItem == (short)140 || moveItem == (short)144)) {
-                                if (armor.ids[i] == 0) {
-                                    inventory.addLocationIC(armor, i, moveItem, moveNum, moveDur);
+                                if (armor.ids[armorIndex] == 0) {
+                                    inventory.addLocationIC(armor, armorIndex, moveItem, moveNum, moveDur);
                                     moveItem = 0;
                                     moveNum = 0;
                                 }
                                 else {
-                                    moveItemTemp = armor.ids[i];
-                                    moveNumTemp = armor.nums[i];
-                                    inventory.removeLocationIC(armor, i, moveNumTemp);
-                                    inventory.addLocationIC(armor, i, moveItem, moveNum, moveDur);
+                                    moveItemTemp = armor.ids[armorIndex];
+                                    moveNumTemp = armor.nums[armorIndex];
+                                    inventory.removeLocationIC(armor, armorIndex, moveNumTemp);
+                                    inventory.addLocationIC(armor, armorIndex, moveItem, moveNum, moveDur);
                                     moveItem = moveItemTemp;
                                     moveNum = moveNumTemp;
                                 }
                             }
                             else if (moveItem == 0) {
-                                moveItem = armor.ids[i];
-                                moveNum = armor.nums[i];
-                                inventory.removeLocationIC(armor, i, moveNum);
+                                moveItem = armor.ids[armorIndex];
+                                moveNum = armor.nums[armorIndex];
+                                inventory.removeLocationIC(armor, armorIndex, moveNum);
                             }
                         }
                     }
@@ -3290,7 +3290,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
             if (checkBlocks) {
                 if (inventory.tool() != 0 && !showTool) {
                     tool = itemImgs.get(inventory.tool());
-                    for (i=0; i<entities.size(); i++) {
+                    for (int i=0; i<entities.size(); i++) {
                         entities.get(i).immune = false;
                     }
                     toolSpeed = TOOLSPEED.get(inventory.tool());
@@ -3413,7 +3413,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                         }
                                     }
                                     if (layer == 1 && !DEBUG_GPLACE && blockcds[blockTemp]) {
-                                        for (i=0; i<entities.size(); i++) {
+                                        for (int i=0; i<entities.size(); i++) {
                                             if (entities.get(i).name != null && entities.get(i).rect.intersects(new Rectangle(ux*BLOCKSIZE, uy*BLOCKSIZE, BLOCKSIZE, BLOCKSIZE))) {
                                                 blockTemp = 0;
                                             }
@@ -3714,14 +3714,14 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                 }
                                 if (ic.type.equals("workbench")) {
                                     if (player.imgState.equals("still right") || player.imgState.equals("walk right 1") || player.imgState.equals("walk right 2")) {
-                                        for (i=0; i<9; i++) {
+                                        for (int i=0; i<9; i++) {
                                             if (ic.ids[i] != 0) {
                                                 entities.add(new Entity(icx*BLOCKSIZE, icy*BLOCKSIZE, 2, -2, ic.ids[i], ic.nums[i], ic.durs[i], 75));
                                             }
                                         }
                                     }
                                     if (player.imgState.equals("still left") || player.imgState.equals("walk left 1") || player.imgState.equals("walk left 2")) {
-                                        for (i=0; i<9; i++) {
+                                        for (int i=0; i<9; i++) {
                                             if (ic.ids[i] != 0) {
                                                 entities.add(new Entity(icx*BLOCKSIZE, icy*BLOCKSIZE, -2, -2, ic.ids[i], ic.nums[i], ic.durs[i], 75));
                                             }
@@ -3907,7 +3907,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                     showInv = true;
                                 }
                                 if (ic != null && blocks[l][uy][ux] != 8) {
-                                    for (i=machinesx.size()-1; i>-1; i--) {
+                                    for (int i=machinesx.size()-1; i>-1; i--) {
                                         if (machinesx.get(i) == icx && machinesy.get(i) == icy) {
                                             machinesx.remove(i);
                                             machinesy.remove(i);
@@ -4023,7 +4023,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
         else {
             vc = 0;
         }
-        for (i=entities.size()-1; i>=0; i--) {
+        for (int i=entities.size()-1; i>=0; i--) {
             if (entities.get(i).newMob != null) {
                 entities.add(entities.get(i).newMob);
             }
@@ -4057,7 +4057,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
             }
         }
         if (player.hp <= 0) {
-            for (j=0; j<40; j++) {
+            for (int j=0; j<40; j++) {
                 if (inventory.ids[j] != 0) {
                     entities.add(new Entity(player.x, player.y, -1, random.nextDouble()*6-3, inventory.ids[j], inventory.nums[j], inventory.durs[j]));
                     inventory.removeLocation(j, inventory.nums[j]);
@@ -4071,14 +4071,14 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                 }
                 if (ic.type.equals("workbench")) {
                     if (player.imgState.equals("still right") || player.imgState.equals("walk right 1") || player.imgState.equals("walk right 2")) {
-                        for (i=0; i<9; i++) {
+                        for (int i=0; i<9; i++) {
                             if (ic.ids[i] != 0) {
                                 entities.add(new Entity(icx*BLOCKSIZE, icy*BLOCKSIZE, 2, -2, ic.ids[i], ic.nums[i], ic.durs[i], 75));
                             }
                         }
                     }
                     if (player.imgState.equals("still left") || player.imgState.equals("walk left 1") || player.imgState.equals("walk left 2")) {
-                        for (i=0; i<9; i++) {
+                        for (int i=0; i<9; i++) {
                             if (ic.ids[i] != 0) {
                                 entities.add(new Entity(icx*BLOCKSIZE, icy*BLOCKSIZE, -2, -2, ic.ids[i], ic.nums[i], ic.durs[i], 75));
                             }
@@ -4094,7 +4094,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
             }
             else {
                 if (showInv) {
-                    for (i=0; i<4; i++) {
+                    for (int i=0; i<4; i++) {
                         if (cic.ids[i] != 0) {
                             if (player.imgState.equals("still right") || player.imgState.equals("walk right 1") || player.imgState.equals("walk right 2")) {
                                 entities.add(new Entity(player.x, player.y, 2, -2, cic.ids[i], cic.nums[i], cic.durs[i], 75));
@@ -4118,7 +4118,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                 moveItem = 0;
                 moveNum = 0;
             }
-            for (i=0; i<4; i++) {
+            for (int i=0; i<4; i++) {
                 if (armor.ids[i] != 0) {
                     if (player.imgState.equals("still right") || player.imgState.equals("walk right 1") || player.imgState.equals("walk right 2")) {
                         entities.add(new Entity(player.x, player.y, 2, -2, armor.ids[i], armor.nums[i], armor.durs[i], 75));
@@ -4160,11 +4160,11 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                 tp5 = new Point((int)(player.x + player.width/2 - 6 + tool.getWidth()*1.5*Math.cos((Math.PI * 1.5) - toolAngle) + tool.getHeight()*1.5*Math.sin((Math.PI * 1.5) - toolAngle)),
                                 (int)(player.y + player.height/2 + tool.getWidth()*1.5*Math.sin((Math.PI * 1.5) - toolAngle) - tool.getHeight()*1.5*Math.cos((Math.PI * 1.5) - toolAngle)));
             }
-            for (i=entities.size()-1; i>=0; i--) {
+            for (int i=entities.size()-1; i>=0; i--) {
                 if (entities.get(i).name != null && !entities.get(i).nohit && showTool && (entities.get(i).rect.contains(tp1) || entities.get(i).rect.contains(tp2) || entities.get(i).rect.contains(tp3) || entities.get(i).rect.contains(tp4) || entities.get(i).rect.contains(tp5)) && (!entities.get(i).name.equals("bee") || random.nextInt(4) == 0)) {
                     if (entities.get(i).hit(TOOLDAMAGE.get(inventory.tool()), player)) {
                         ArrayList<Short> dropList = entities.get(i).drops();
-                        for (j=0; j<dropList.size(); j++) {
+                        for (int j=0; j<dropList.size(); j++) {
                             s = dropList.get(j);
                             entities.add(new Entity(entities.get(i).x, entities.get(i).y, random.nextInt(4)-2, -1, s, (short)1));
                         }
@@ -4185,7 +4185,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         Rectangle rect;
         int bx1, bx2, by1, by2;
-        for (i=-1; i<entities.size(); i++) {
+        for (int i=-1; i<entities.size(); i++) {
             if (i == -1) {
                 rect = player.rect;
                 width = player.width;
@@ -4355,14 +4355,14 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
             }
             if (blocks[layer][uy][ux] >= 8 && blocks[layer][uy][ux] <= 14 || blocks[layer][uy][ux] == 17 || blocks[layer][uy][ux] == 23 || blocks[layer][uy][ux] >= 80 && blocks[layer][uy][ux] <= 82) {
                 if (ic != null) {
-                    for (i=0; i<ic.ids.length; i++) {
+                    for (int i=0; i<ic.ids.length; i++) {
                         if (ic.ids[i] != 0 && !(ic.type.equals("furnace") && i == 1)) {
                             entities.add(new Entity(ux*BLOCKSIZE, uy*BLOCKSIZE, random.nextDouble()*4-2, -2, ic.ids[i], ic.nums[i], ic.durs[i]));
                         }
                     }
                 }
                 if (icmatrix[layer][uy][ux] != null) {
-                    for (i=0; i<icmatrix[layer][uy][ux].ids.length; i++) {
+                    for (int i=0; i<icmatrix[layer][uy][ux].ids.length; i++) {
                         if (icmatrix[layer][uy][ux].ids[i] != 0 && !(icmatrix[layer][uy][ux].type.equals("furnace") && i == 1)) {
                             entities.add(new Entity(ux*BLOCKSIZE, uy*BLOCKSIZE, random.nextDouble()*4-2, -2, icmatrix[layer][uy][ux].ids[i], icmatrix[layer][uy][ux].nums[i], icmatrix[layer][uy][ux].durs[i]));
                         }
@@ -4370,7 +4370,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                     icmatrix[layer][uy][ux] = null;
                 }
                 ic = null;
-                for (i=0; i<machinesx.size(); i++) {
+                for (int i=0; i<machinesx.size(); i++) {
                     if (machinesx.get(i) == ux && machinesy.get(i) == uy) {
                         machinesx.remove(i);
                         machinesy.remove(i);
@@ -4413,7 +4413,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
             default: break;
             }
             if (t != 0) {
-                for (i=0; i<Math.max(1, n); i++) {
+                for (int i=0; i<Math.max(1, n); i++) {
                     entities.add(new Entity(ux*BLOCKSIZE, uy*BLOCKSIZE, random.nextDouble()*4-2, -2, (short)t, (short)1));
                 }
             }
@@ -4542,7 +4542,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                 default: break;
                 }
                 if (t != 0) {
-                    for (i=0; i<Math.max(1, n); i++) {
+                    for (int i=0; i<Math.max(1, n); i++) {
                         entities.add(new Entity(ux*BLOCKSIZE, uy*BLOCKSIZE, random.nextDouble()*4-2, -2, (short)t, (short)1));
                     }
                 }
@@ -4605,7 +4605,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
     public void updateEnvironment() {
         timeOfDay += 1.2*DEBUG_ACCEL;
-        for (i=cloudsx.size()-1; i>-1; i--) {
+        for (int i=cloudsx.size()-1; i>-1; i--) {
             cloudsx.set(i, cloudsx.get(i) + cloudsv.get(i));
             if (cloudsx.get(i) < -250 || cloudsx.get(i) > getWidth() + 250) {
                 cloudsx.remove(i);
@@ -5218,7 +5218,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                     }
                     addTileToZQueue(x, y);
                 }
-                for (i=0; i<4; i++) {
+                for (int i=0; i<4; i++) {
                     x2 = x + cl[i][0];
                     y2 = y + cl[i][1];
                     if (y2 >= 0 && y2 < HEIGHT) {
@@ -5246,7 +5246,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
         catch (IndexOutOfBoundsException e) {
             //
         }
-        for (i=0; i<zqx.size(); i++) {
+        for (int i=0; i<zqx.size(); i++) {
             x = zqx.get(i);
             y = zqy.get(i);
             if ((int)(float)lights[y][x] != zqn[y][x]) {
@@ -5271,7 +5271,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                         }
                     }
                 }
-                for (i=0; i<4; i++) {
+                for (int i=0; i<4; i++) {
                     x2 = x + cl[i][0];
                     y2 = y + cl[i][1];
                     if (y2 >= 0 && y2 < HEIGHT) {
@@ -5382,7 +5382,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
         catch (IndexOutOfBoundsException e) {
             //
         }
-        for (i=0; i<pzqx.size(); i++) {
+        for (int i=0; i<pzqx.size(); i++) {
             x = pzqx.get(i);
             y = pzqy.get(i);
             for (int l=0; l<3; l++) {
@@ -5436,7 +5436,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                 pg2.rotate(-(timeOfDay - 70200)/86400*Math.PI*2-Math.PI);
                 pg2.translate(-getWidth()/2, -getHeight()*0.85);
 
-                for (i=0; i<cloudsx.size(); i++) {
+                for (int i=0; i<cloudsx.size(); i++) {
                     cloud = clouds[cloudsn.get(i)];
                     pg2.drawImage(clouds[cloudsn.get(i)],
                         (int)cloudsx.get(i).doubleValue(), (int)cloudsy.get(i).doubleValue(), (int)cloudsx.get(i).doubleValue()+cloud.getWidth()*2, (int)cloudsy.get(i).doubleValue()+cloud.getHeight()*2,
@@ -5472,7 +5472,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                 0, 0, player.image.getWidth(), player.image.getHeight(),
                 null);
 
-            for (i=0; i<entities.size(); i++) {
+            for (int i=0; i<entities.size(); i++) {
                 entity = entities.get(i);
                 pg2.drawImage(entity.image,
                     entity.ix -player.ix + getWidth()/2 - player.width/2, entity.iy -player.iy + getHeight()/2 - player.height/2, entity.ix -player.ix + getWidth()/2 - player.width/2 + entity.width, entity.iy -player.iy + getHeight()/2 - player.height/2 + entity.height,
@@ -5600,7 +5600,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                     pg2.drawString(moveNum + " ", mousePos[0]+13, mousePos[1]+38);
                 }
             }
-            for (i=0; i<entities.size(); i++) {
+            for (int i=0; i<entities.size(); i++) {
                 if (UIENTITIES.get(entities.get(i).name) != null && entities.get(i).rect != null && entities.get(i).rect.contains(new Point(mousePos2[0], mousePos2[1]))) {
                     pg2.setFont(mobFont);
                     pg2.setColor(Color.WHITE);
@@ -5806,7 +5806,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                 0, 0, getWidth(), getHeight(),
                 0, 0, getWidth(), getHeight(),
                 null);
-            for (i=0; i<worldNames.size(); i++) {
+            for (int i=0; i<worldNames.size(); i++) {
                 pg2.setFont(worldFont);
                 pg2.setColor(Color.BLACK);
                 pg2.drawString(worldNames.get(i), 180, 140+i*35);
@@ -5937,7 +5937,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
         if (ic != null) {
             inventory.renderCollection(ic);
         }
-        for (i=0; i<entities.size(); i++) {
+        for (int i=0; i<entities.size(); i++) {
             entities.get(i).reloadImage();
         }
         worlds = new BufferedImage[WORLDHEIGHT][WORLDWIDTH];
@@ -6148,14 +6148,14 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                     }
                     if (ic.type.equals("workbench")) {
                         if (player.imgState.equals("still right") || player.imgState.equals("walk right 1") || player.imgState.equals("walk right 2")) {
-                            for (i=0; i<9; i++) {
+                            for (int i=0; i<9; i++) {
                                 if (ic.ids[i] != 0) {
                                     entities.add(new Entity(icx*BLOCKSIZE, icy*BLOCKSIZE, 2, -2, ic.ids[i], ic.nums[i], ic.durs[i], 75));
                                 }
                             }
                         }
                         if (player.imgState.equals("still left") || player.imgState.equals("walk left 1") || player.imgState.equals("walk left 2")) {
-                            for (i=0; i<9; i++) {
+                            for (int i=0; i<9; i++) {
                                 if (ic.ids[i] != 0) {
                                     entities.add(new Entity(icx*BLOCKSIZE, icy*BLOCKSIZE, -2, -2, ic.ids[i], ic.nums[i], ic.durs[i], 75));
                                 }
@@ -6171,7 +6171,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                 }
                 else {
                     if (showInv) {
-                        for (i=0; i<4; i++) {
+                        for (int i=0; i<4; i++) {
                             if (cic.ids[i] != 0) {
                                 if (player.imgState.equals("still right") || player.imgState.equals("walk right 1") || player.imgState.equals("walk right 2")) {
                                     entities.add(new Entity(player.x, player.y, 2, -2, cic.ids[i], cic.nums[i], cic.durs[i], 75));
