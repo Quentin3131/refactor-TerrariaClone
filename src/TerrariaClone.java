@@ -1838,12 +1838,104 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
         menuTimer = new javax.swing.Timer(20, null);
 
-        menuTimer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
+        menuTimer.addActionListener(this::handleMenuTimerTick);
+
+        menuTimer.start();
+    }
+
+    private void handleMenuTimerTick(ActionEvent ae) {
                 try {
                     if (queue[3]) {
                         Action mainThread = new AbstractAction() {
                             public void actionPerformed(ActionEvent ae) {
+                                runGameTick(ae);
+                            }
+                        };
+                        timer = new javax.swing.Timer(20, mainThread);
+
+                        if (state.equals("title_screen") && !menuPressed) {
+                            if (mousePos[0] >= 239 && mousePos[0] <= 557) {
+                                if (mousePos[1] >= 213 && mousePos[1] <= 249) { // singleplayer
+                                    findWorlds();
+                                    state = "select_world";
+                                    repaint();
+                                    menuPressed = true;
+                                }
+                            }
+                        }
+                        if (state.equals("select_world") && !menuPressed) {
+                            if (mousePos[0] >= 186 && mousePos[0] <= 615 &&
+                                mousePos[1] >= 458 && mousePos[1] <= 484) { // create new world
+                                state = "new_world";
+                                newWorldName = new TextField(400, "New World");
+                                repaint();
+                                menuPressed = true;
+                            }
+                            if (mousePos[0] >= 334 && mousePos[0] <= 457 &&
+                                mousePos[1] >= 504 && mousePos[1] <= 530) { // back
+                                state = "title_screen";
+                                repaint();
+                                menuPressed = true;
+                            }
+                            for (int i=0; i<worldFiles.size(); i++) {
+                                if (mousePos[0] >= 166 && mousePos[0] <= 470 &&
+                                    mousePos[1] >= 117+i*35 && mousePos[1] <= 152+i*35) { // load world
+                                    currentWorld = worldNames.get(i);
+                                    state = "loading_world";
+                                    bg = Color.BLACK;
+                                    if (loadWorld(worldFiles.get(i))) {
+                                        menuTimer.stop();
+                                        bg = CYANISH;
+                                        state = "ingame";
+                                        ready = true;
+                                        timer.start();
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if (state.equals("new_world") && !menuPressed) {
+                            if (mousePos[0] >= 186 && mousePos[0] <= 615 &&
+                                mousePos[1] >= 458 && mousePos[1] <= 484) { // create new world
+                                if (!newWorldName.text.equals("")) {
+                                    findWorlds();
+                                    doGenerateWorld = true;
+                                    for (int i=0; i<worldNames.size(); i++) {
+                                        if (newWorldName.text.equals(worldNames.get(i))) {
+                                            doGenerateWorld = false;
+                                        }
+                                    }
+                                    if (doGenerateWorld) {
+                                        menuTimer.stop();
+                                        bg = Color.BLACK;
+                                        state = "generating_world";
+                                        currentWorld = newWorldName.text;
+                                        repaint();
+                                        Action createWorldThread = new AbstractAction() {
+                                            public void actionPerformed(ActionEvent ae) {
+                                                runWorldCreation(ae);
+                                            }
+                                        };
+                                        createWorldTimer = new javax.swing.Timer(1, createWorldThread);
+                                        createWorldTimer.start();
+                                    }
+                                }
+                            }
+                            if (mousePos[0] >= 334 && mousePos[0] <= 457 &&
+                                mousePos[1] >= 504 && mousePos[1] <= 530) { // back
+                                state = "select_world";
+                                repaint();
+                                menuPressed = true;
+                            }
+                        }
+                    }
+                }
+                catch (Exception e) {
+                    postError(e);
+                }
+            }
+
+    private void runGameTick(ActionEvent ae) {
                                 try {
                                     if (ready) {
                                         ready = false;
@@ -2164,69 +2256,8 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                     postError(e);
                                 }
                             }
-                        };
-                        timer = new javax.swing.Timer(20, mainThread);
 
-                        if (state.equals("title_screen") && !menuPressed) {
-                            if (mousePos[0] >= 239 && mousePos[0] <= 557) {
-                                if (mousePos[1] >= 213 && mousePos[1] <= 249) { // singleplayer
-                                    findWorlds();
-                                    state = "select_world";
-                                    repaint();
-                                    menuPressed = true;
-                                }
-                            }
-                        }
-                        if (state.equals("select_world") && !menuPressed) {
-                            if (mousePos[0] >= 186 && mousePos[0] <= 615 &&
-                                mousePos[1] >= 458 && mousePos[1] <= 484) { // create new world
-                                state = "new_world";
-                                newWorldName = new TextField(400, "New World");
-                                repaint();
-                                menuPressed = true;
-                            }
-                            if (mousePos[0] >= 334 && mousePos[0] <= 457 &&
-                                mousePos[1] >= 504 && mousePos[1] <= 530) { // back
-                                state = "title_screen";
-                                repaint();
-                                menuPressed = true;
-                            }
-                            for (int i=0; i<worldFiles.size(); i++) {
-                                if (mousePos[0] >= 166 && mousePos[0] <= 470 &&
-                                    mousePos[1] >= 117+i*35 && mousePos[1] <= 152+i*35) { // load world
-                                    currentWorld = worldNames.get(i);
-                                    state = "loading_world";
-                                    bg = Color.BLACK;
-                                    if (loadWorld(worldFiles.get(i))) {
-                                        menuTimer.stop();
-                                        bg = CYANISH;
-                                        state = "ingame";
-                                        ready = true;
-                                        timer.start();
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        if (state.equals("new_world") && !menuPressed) {
-                            if (mousePos[0] >= 186 && mousePos[0] <= 615 &&
-                                mousePos[1] >= 458 && mousePos[1] <= 484) { // create new world
-                                if (!newWorldName.text.equals("")) {
-                                    findWorlds();
-                                    doGenerateWorld = true;
-                                    for (int i=0; i<worldNames.size(); i++) {
-                                        if (newWorldName.text.equals(worldNames.get(i))) {
-                                            doGenerateWorld = false;
-                                        }
-                                    }
-                                    if (doGenerateWorld) {
-                                        menuTimer.stop();
-                                        bg = Color.BLACK;
-                                        state = "generating_world";
-                                        currentWorld = newWorldName.text;
-                                        repaint();
-                                        Action createWorldThread = new AbstractAction() {
-                                            public void actionPerformed(ActionEvent ae) {
+    private void runWorldCreation(ActionEvent ae) {
                                                 try {
                                                     createNewWorld();
                                                     bg = CYANISH;
@@ -2239,29 +2270,6 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                                     postError(e);
                                                 }
                                             }
-                                        };
-                                        createWorldTimer = new javax.swing.Timer(1, createWorldThread);
-                                        createWorldTimer.start();
-                                    }
-                                }
-                            }
-                            if (mousePos[0] >= 334 && mousePos[0] <= 457 &&
-                                mousePos[1] >= 504 && mousePos[1] <= 530) { // back
-                                state = "select_world";
-                                repaint();
-                                menuPressed = true;
-                            }
-                        }
-                    }
-                }
-                catch (Exception e) {
-                    postError(e);
-                }
-            }
-        });
-
-        menuTimer.start();
-    }
 
     public void codeTooLarge() {
         int M = Integer.MAX_VALUE;
