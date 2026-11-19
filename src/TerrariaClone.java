@@ -495,7 +495,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
     BufferedImage layerImg;
 
     Entity entity;
-    String state = "loading_graphics";
+    GameState state = GameState.LOADING_GRAPHICS;
     String msg = "If you are reading this then\nplease report an error.";
     String mobSpawn;
 
@@ -863,7 +863,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
             initializeInterface();
             loadInterfaceImages();
 
-            state = "loading_graphics";
+            state = GameState.LOADING_GRAPHICS;
 
             repaint();
 
@@ -1830,7 +1830,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
 
     private void initializeRuntime() {
         bg = CYANISH;
-        state = "title_screen";
+        state = GameState.TITLE_SCREEN;
 
         repaint();
 
@@ -1851,27 +1851,27 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                         };
                         timer = new javax.swing.Timer(20, mainThread);
 
-                        if (state.equals("title_screen") && !menuPressed) {
+                        if (state == GameState.TITLE_SCREEN && !menuPressed) {
                             if (mousePos[0] >= 239 && mousePos[0] <= 557) {
                                 if (mousePos[1] >= 213 && mousePos[1] <= 249) { // singleplayer
                                     findWorlds();
-                                    state = "select_world";
+                                    state = GameState.SELECT_WORLD;
                                     repaint();
                                     menuPressed = true;
                                 }
                             }
                         }
-                        if (state.equals("select_world") && !menuPressed) {
+                        if (state == GameState.SELECT_WORLD && !menuPressed) {
                             if (mousePos[0] >= 186 && mousePos[0] <= 615 &&
                                 mousePos[1] >= 458 && mousePos[1] <= 484) { // create new world
-                                state = "new_world";
+                                state = GameState.NEW_WORLD;
                                 newWorldName = new TextField(400, "New World");
                                 repaint();
                                 menuPressed = true;
                             }
                             if (mousePos[0] >= 334 && mousePos[0] <= 457 &&
                                 mousePos[1] >= 504 && mousePos[1] <= 530) { // back
-                                state = "title_screen";
+                                state = GameState.TITLE_SCREEN;
                                 repaint();
                                 menuPressed = true;
                             }
@@ -1879,12 +1879,12 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                 if (mousePos[0] >= 166 && mousePos[0] <= 470 &&
                                     mousePos[1] >= 117+i*35 && mousePos[1] <= 152+i*35) { // load world
                                     currentWorld = worldNames.get(i);
-                                    state = "loading_world";
+                                    state = GameState.LOADING_WORLD;
                                     bg = Color.BLACK;
                                     if (loadWorld(worldFiles.get(i))) {
                                         menuTimer.stop();
                                         bg = CYANISH;
-                                        state = "ingame";
+                                        state = GameState.INGAME;
                                         ready = true;
                                         timer.start();
                                         break;
@@ -1892,7 +1892,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                 }
                             }
                         }
-                        if (state.equals("new_world") && !menuPressed) {
+                        if (state == GameState.NEW_WORLD && !menuPressed) {
                             if (mousePos[0] >= 186 && mousePos[0] <= 615 &&
                                 mousePos[1] >= 458 && mousePos[1] <= 484) { // create new world
                                 if (!newWorldName.text.equals("")) {
@@ -1906,7 +1906,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                     if (doGenerateWorld) {
                                         menuTimer.stop();
                                         bg = Color.BLACK;
-                                        state = "generating_world";
+                                        state = GameState.GENERATING_WORLD;
                                         currentWorld = newWorldName.text;
                                         repaint();
                                         Action createWorldThread = new AbstractAction() {
@@ -1921,7 +1921,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                             }
                             if (mousePos[0] >= 334 && mousePos[0] <= 457 &&
                                 mousePos[1] >= 504 && mousePos[1] <= 530) { // back
-                                state = "select_world";
+                                state = GameState.SELECT_WORLD;
                                 repaint();
                                 menuPressed = true;
                             }
@@ -2259,7 +2259,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                                                 try {
                                                     createNewWorld();
                                                     bg = CYANISH;
-                                                    state = "ingame";
+                                                    state = GameState.INGAME;
                                                     ready = true;
                                                     timer.start();
                                                     createWorldTimer.stop();
@@ -2922,7 +2922,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                     if (mouseClicked) {
                         mouseNoLongerClicked = true;
                         saveWorld();
-                        state = "title_screen";
+                        state = GameState.TITLE_SCREEN;
                         timer.stop();
                         menuTimer.start();
                         return;
@@ -5342,7 +5342,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
         pg2 = screen.createGraphics();
         pg2.setColor(bg);
         pg2.fillRect(0, 0, getWidth(), getHeight());
-        if (state.equals("ingame")) {
+        if (state == GameState.INGAME) {
 /*            if (SKYLIGHTS.get((int)timeOfDay) != null) {
                 sunlightlevel = SKYLIGHTS.get((int)timeOfDay);
                 resunlight = 0;
@@ -5728,18 +5728,18 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                 }
             }
         }
-        if (state.equals("loading_graphics")) {
+        if (state == GameState.LOADING_GRAPHICS) {
             pg2.setFont(loadFont);
             pg2.setColor(Color.GREEN);
             pg2.drawString("Loading graphics... Please wait.", getWidth()/2-200, getHeight()/2-5);
         }
-        if (state.equals("title_screen")) {
+        if (state == GameState.TITLE_SCREEN) {
             pg2.drawImage(title_screen,
                 0, 0, getWidth(), getHeight(),
                 0, 0, getWidth(), getHeight(),
                 null);
         }
-        if (state.equals("select_world")) {
+        if (state == GameState.SELECT_WORLD) {
             pg2.drawImage(select_world,
                 0, 0, getWidth(), getHeight(),
                 0, 0, getWidth(), getHeight(),
@@ -5751,7 +5751,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                 pg2.fillRect(166, 150+i*35, 470, 3);
             }
         }
-        if (state.equals("new_world")) {
+        if (state == GameState.NEW_WORLD) {
             pg2.drawImage(new_world,
                 0, 0, getWidth(), getHeight(),
                 0, 0, getWidth(), getHeight(),
@@ -5761,7 +5761,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
                 0, 0, 400, 30,
                 null);
         }
-        if (state.equals("generating_world")) {
+        if (state == GameState.GENERATING_WORLD) {
             pg2.setFont(loadFont);
             pg2.setColor(Color.GREEN);
             pg2.drawString("Generating new world... Please wait.", getWidth()/2-200, getHeight()/2-5);
@@ -6076,7 +6076,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
         if (key.getKeyCode() == key.VK_SHIFT) {
             queue[5] = true;
         }
-        if (state.equals("ingame")) {
+        if (state == GameState.INGAME) {
             if (key.getKeyCode() == key.VK_ESCAPE) {
                 if (ic != null) {
                     if (!ic.type.equals("workbench")) {
@@ -6268,7 +6268,7 @@ public class TerrariaClone extends JApplet implements ChangeListener, KeyListene
             if (c == '/') c = '?';
         }
 
-        if (state.equals("new_world") && !newWorldFocus) {
+        if (state == GameState.NEW_WORLD && !newWorldFocus) {
             if (c != 0) {
                 newWorldName.typeKey(c);
                 repaint();

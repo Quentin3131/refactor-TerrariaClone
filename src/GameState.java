@@ -1,0 +1,9 @@
+public enum GameState {
+    LOADING_GRAPHICS,
+    TITLE_SCREEN,
+    SELECT_WORLD,
+    NEW_WORLD,
+    LOADING_WORLD,
+    GENERATING_WORLD,
+    INGAME
+}
