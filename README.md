@@ -104,6 +104,16 @@ $ java -cp out:textures TerrariaClone
 As mentioned previously, although it runs, it fails to run very well.
 See [this pull request][fix-bugs].
 
+#### Tests
+
+The lightweight tests can be compiled and run without additional dependencies:
+
+```
+$ mkdir -p out
+$ javac -d out src/*.java tests/TerrariaCloneTest.java
+$ java -cp out TerrariaCloneTest
+```
+
 #### TerraFrame?
 
 This project was originally called TerraFrame (back when I created it
